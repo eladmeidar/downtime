@@ -1,0 +1,5 @@
+development:
+  host: 'redis://localhost:6379/0'
+production:
+  host: <%= ENV['REDIS_URL'] %>
+  
