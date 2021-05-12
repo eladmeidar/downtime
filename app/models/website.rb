@@ -15,6 +15,7 @@ class Website < ApplicationRecord
   end
 
   def as_json(options)
+    logs = Checker.log_for_website(id)
     {
       id: id,
       callback_url: callback_url,
@@ -22,7 +23,9 @@ class Website < ApplicationRecord
       response_time_in_seconds: response_time_in_seconds,
       check_interval: run_interval_in_seconds,
       last_status_code: status_code,
-      active: active
+      active: active,
+      recent_status_codes: logs[:status_codes],
+      recent_response_times: logs[:response_times]
     }
   end
   

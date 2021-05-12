@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_191548) do
+ActiveRecord::Schema.define(version: 2021_05_12_192400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_191548) do
     t.integer "run_interval_in_seconds", default: 60
     t.integer "account_id"
     t.string "callback_url"
+    t.boolean "active", default: true
   end
 
 end

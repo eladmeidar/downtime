@@ -5,14 +5,16 @@ class UptimeCheckJob < ApplicationJob
   def perform(website_id)
     website = Website.find(website_id)
     begin
-      started = Time.now.to_f
-      res = HTTParty.get(website.url)
+      
+      check = Checker.check(website)
+
       website.update_attributes({
-        status_code: res.code,
+        status_code: check.status_code,
         last_check_at: DateTime.now,
-        response_time_in_seconds: (Time.now.to_f - started).round(2)
+        response_time_in_seconds: check.response_time
       })
-      website.notify! if res.code != 200
+
+      website.notify! if check.failed?
     rescue
       website.update_attributes({
         status_code: 500,
